@@ -1,13 +1,15 @@
 import FirebaseAuth from '../components/FirebaseAuth'
+import { Center, Container } from "@chakra-ui/core"
 
 const Auth = () => {
   return (
-    <div>
-      <p>Sign in</p>
-      <div>
-        <FirebaseAuth />
-      </div>
-    </div>
+    <>
+      <Center bg="gray.200" h="100vh" color="white">
+        <Container>
+          <FirebaseAuth />
+        </Container>
+      </Center>
+    </>
   )
 }
 
