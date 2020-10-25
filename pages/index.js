@@ -17,9 +17,9 @@ const Index = ({ matches }) => {
   if (!user) {
     return (
       <>
-        <Center bg="gray.200" minH="100vh" color="white">
+        <Center bg="gray.50" minH="100vh" color="white">
           <VStack>
-            <Heading textAlign="center">Get frag highlights for CS:GO</Heading>
+            {/* <Heading textAlign="center">Your CS:GO highlights send to your email</Heading> */}
             <NextLink href={'/auth'} passHref>
               <Button>Sign in</Button>
             </NextLink>
