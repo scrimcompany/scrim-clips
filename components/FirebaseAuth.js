@@ -11,7 +11,7 @@ import { mapUserData } from '../utils/auth/mapUserData'
 initFirebase()
 
 const firebaseAuthConfig = {
-  signInFlow: 'popup',
+  // signInFlow: 'popup',
   // Auth providers
   // https://github.com/firebase/firebaseui-web#configure-oauth-providers
   signInOptions: [
