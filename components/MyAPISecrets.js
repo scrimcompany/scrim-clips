@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useUser } from '../utils/auth/useUser'
-import { useToast, Link, Container, Button, Drawer, DrawerOverlay, DrawerContent, DrawerHeader, DrawerBody, useDisclosure, VStack, FormControl, FormLabel, Input, FormHelperText } from "@chakra-ui/core"
+import { Text, useToast, Link, Container, Button, Drawer, DrawerOverlay, DrawerContent, DrawerHeader, DrawerBody, useDisclosure, VStack, FormControl, FormLabel, Input, FormHelperText } from "@chakra-ui/core"
 
 const MyAPISecrets = () => {
     const { user } = useUser()
@@ -82,12 +82,12 @@ const MyAPISecrets = () => {
             <Drawer placement={placement} onClose={onClose} isOpen={isOpen}>
                 <DrawerOverlay>
                     <DrawerContent>
-                        <DrawerHeader borderBottomWidth="1px">Set authentication code to access your match history</DrawerHeader>
+                        <DrawerHeader borderBottomWidth="1px">Match History Authentication Code</DrawerHeader>
                         <DrawerBody>
                             <Container>
-                                We will use your authentication code to access your match history and download replays of your matches.
+                                <Text py={4}>We will use your authentication code to access your match history and download replays of your matches.</Text>
                                 <form onSubmit={handleSubmitForm}>
-                                    <VStack>
+                                    <VStack spacing="1rem">
                                         <FormControl id="steamId" isRequired>
                                             <FormLabel>Your SteamID64</FormLabel>
                                             <Input type="text" placeholder="76561197961790405" value={steamId} onChange={(event) => setSteamId(event.target.value)} />
