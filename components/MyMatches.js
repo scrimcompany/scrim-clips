@@ -1,31 +1,34 @@
-import useSWR from 'swr'
-import { useUser } from '../utils/auth/useUser'
+import useSWR from 'swr';
+import { useUser } from '../utils/auth/useUser';
+import { Spinner } from "@chakra-ui/core";
 
-import { Spinner } from "@chakra-ui/core"
+import MatchCard from './MatchCard';
 
-const fetcher = (url, token) =>
-    fetch(url, {
-        method: 'GET',
-        headers: new Headers({ 'Content-Type': 'application/json', token }),
-        credentials: 'same-origin',
-    }).then((res) => res.json())
+import { useCollection } from '@nandorojo/swr-firestore'
 
-const MyMatches = () => {
-    const { user } = useUser()
+const MyMatches = ({ user }) => {
+    const { data, update, error } = useCollection("matches", { where: ['requestBy', 'array-contains', user && user.id], listen: true, orderBy: ['created', 'desc'], })
 
-    const { data, error } = useSWR(
-        user ? ['/api/getMyMatches', user.token] : null,
-        fetcher
-    )
-
-    if (error) return (<div>Failed to fetch matches!</div>);
-    if (!data && !error) return (<Spinner />);
+    if (error) {
+        console.log(error);
+        return (<div>Failed to fetch matches!</div>);
+    }
+    if (!data && !error) return (
+        <Spinner m={2} />
+    );
 
     return (
         <div>
             {
-                data.matches.map(match => {
-                    return (<div key={match.id}>{match.id} {match.demoUrl} {new Date(match.created).getTime()}</div>)
+                data &&
+                data.length === 0 &&
+                "No matches imported"
+            }
+            {
+                data &&
+                data.length > 0 &&
+                data.map(match => {
+                    return (<MatchCard key={match.id} {...match} />)
                 })
             }
         </div>

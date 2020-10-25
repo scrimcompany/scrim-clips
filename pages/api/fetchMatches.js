@@ -52,6 +52,11 @@ const fetchMatches = async (req, res) => {
                 let fetching = true;
                 let matchTokens = [];
 
+                // first match token
+                if (!secrets.latestMatchToken) {
+                    matchTokens.push(secrets.matchToken);
+                }
+
                 while (fetching) {
                     const nextMatchToken = await getNextMatch(secrets.steamId, secrets.authCode, secrets.latestMatchToken || secrets.matchToken);
 
@@ -60,23 +65,26 @@ const fetchMatches = async (req, res) => {
                     } else {
                         secrets.latestMatchToken = nextMatchToken;
                         matchTokens.push(nextMatchToken);
-
-                        try {
-                            sqs.sendMessage({
-                                MessageBody: nextMatchToken,
-                                QueueUrl: queueURL,
-                            }, function (err, data) {
-                                if (err) {
-                                    console.log("Error", err);
-                                } else {
-                                    console.log("Success", data.MessageId);
-                                }
-                            });
-                        } catch (e) {
-                            console.log(e);
-                        }
                     }
                 }
+
+                // Add matches to queue for processing
+                matchTokens.forEach(matchToken => {
+                    try {
+                        sqs.sendMessage({
+                            MessageBody: matchToken,
+                            QueueUrl: queueURL,
+                        }, function (err, data) {
+                            if (err) {
+                                console.log("Error", err);
+                            } else {
+                                console.log("Success", data.MessageId);
+                            }
+                        });
+                    } catch (e) {
+                        console.log(e);
+                    }
+                });
 
                 resolve({
                     uid: secrets.uid,
@@ -99,7 +107,7 @@ const fetchMatches = async (req, res) => {
                     const ref = admin.firestore().collection("matches").doc(match);
                     batch.set(ref, {
                         created: admin.firestore.FieldValue.serverTimestamp(),
-                        players: admin.firestore.FieldValue.arrayUnion(result.steamId)
+                        requestBy: admin.firestore.FieldValue.arrayUnion(result.uid)
                     }, { merge: true });
                 });
 

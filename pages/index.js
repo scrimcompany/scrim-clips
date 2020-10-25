@@ -17,30 +17,29 @@ const Index = ({ matches }) => {
   if (!user) {
     return (
       <>
-        <Center bg="gray.200" minH="50vh" color="white">
+        <Center bg="gray.200" minH="100vh" color="white">
           <VStack>
             <Heading textAlign="center">Get frag highlights for CS:GO</Heading>
             <NextLink href={'/auth'} passHref>
               <Button>Sign in</Button>
             </NextLink>
           </VStack>
-        </Center >
-
-        {JSON.stringify(matches)}
+        </Center>
       </>
     )
   } else {
     return (
-      <div>
-
-        <HStack><MyAPISecrets />
+      <>
+        <HStack>
+          <MyAPISecrets />
 
           <Button
             onClick={() => logout()}
-          >Log out</Button></HStack>
+          >Log out</Button>
+        </HStack>
 
-        <MyMatches />
-      </div>
+        { user && <MyMatches user={user} />}
+      </>
     )
   }
 }
