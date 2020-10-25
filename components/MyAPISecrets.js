@@ -56,6 +56,10 @@ const MyAPISecrets = () => {
                     status: "success",
                     isClosable: true,
                 });
+
+                fetch('/api/fetchMatches', {
+                    method: 'GET'
+                });
             }
 
             onClose();

@@ -22,7 +22,7 @@ const MyMatches = ({ user }) => {
             {
                 data &&
                 data.length === 0 &&
-                "No matches imported"
+                "Please set auth codes so we can access your match history."
             }
             {
                 data &&
