@@ -3,7 +3,11 @@ import type { AppProps /*, AppContext */ } from 'next/app'
 import { ChakraProvider } from "@chakra-ui/core"
 
 function MyApp({ Component, pageProps }: AppProps) {
-    return (<ChakraProvider><Component {...pageProps} /></ChakraProvider>)
+    return (
+        <ChakraProvider>
+            <Component {...pageProps} />
+        </ChakraProvider>
+    )
 }
 
 // Only uncomment this method if you have blocking data requirements for

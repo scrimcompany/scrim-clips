@@ -1,6 +1,8 @@
 import useSWR from 'swr'
 import { useUser } from '../utils/auth/useUser'
 
+import { Spinner } from "@chakra-ui/core"
+
 const fetcher = (url, token) =>
     fetch(url, {
         method: 'GET',
@@ -16,15 +18,17 @@ const MyMatches = () => {
         fetcher
     )
 
+    if (error) return (<div>Failed to fetch matches!</div>);
+    if (!data && !error) return (<Spinner />);
+
     return (
-        <>
-            {error && <div>Failed to fetch matches!</div>}
-            {data && !error ? (
-                <div>{JSON.stringify(data)}</div>
-            ) : (
-                    <div>Loading...</div>
-                )}
-        </>
+        <div>
+            {
+                data.matches.map(match => {
+                    return (<div key={match.id}>{match.id} {match.demoUrl} {new Date(match.created).getTime()}</div>)
+                })
+            }
+        </div>
     )
 }
 

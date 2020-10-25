@@ -1,7 +1,8 @@
 import NextLink from 'next/link'
 import { useUser } from '../utils/auth/useUser'
-import { Button, Center, VStack, Heading } from "@chakra-ui/core"
+import { Button, Center, VStack, HStack, Heading, } from "@chakra-ui/core"
 import MyMatches from './../components/MyMatches';
+import MyAPISecrets from './../components/MyAPISecrets';
 
 const fetcher = (url, token) =>
   fetch(url, {
@@ -20,7 +21,7 @@ const Index = ({ matches }) => {
           <VStack>
             <Heading textAlign="center">Get frag highlights for CS:GO</Heading>
             <NextLink href={'/auth'} passHref>
-              <Button colorScheme="blue" variant="solid">Sign in</Button>
+              <Button>Sign in</Button>
             </NextLink>
           </VStack>
         </Center >
@@ -31,11 +32,13 @@ const Index = ({ matches }) => {
   } else {
     return (
       <div>
-        <div>
+
+        <HStack><MyAPISecrets />
+
           <Button
             onClick={() => logout()}
-          >Log out</Button>
-        </div>
+          >Log out</Button></HStack>
+
         <MyMatches />
       </div>
     )

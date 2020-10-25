@@ -12,20 +12,31 @@ export default async function getMyMatches(req, res) {
         return res.status(401).send('You are unauthorised')
     }
 
-    return admin
-        .firestore()
-        .collection("matches")
-        .where("players", "array-contains", uid)
-        .get()
-        .then(snap => {
-            const matches = [];
-            snap.docs.forEach(doc => {
-                const match = Object.assign(doc.data(), { id: doc.id });
-                matches.push(match);
-            });
+    try {
+        const authcode = await admin.firestore().collection("authcodes").doc(uid).get();
+        const steamId = authcode.data() && authcode.data().steamId;
 
-            return res.status(200).json({
-                matches
-            })
-        });
+        return admin
+            .firestore()
+            .collection("matches")
+            .where("players", "array-contains", steamId)
+            .get()
+            .then(snap => {
+                const matches = [];
+                snap.docs.forEach(doc => {
+                    const match = Object.assign(doc.data(), { id: doc.id });
+                    match.created = match.created.toDate();
+                    matches.push(match);
+                });
+
+                return res.status(200).json({
+                    matches
+                })
+            });
+    } catch (e) {
+        return res.status(200).json({
+            matches: []
+        })
+    }
+
 }
