@@ -70,7 +70,7 @@ const MyAPISecrets = () => {
                 description: e.message,
                 status: "error",
                 isClosable: true,
-            })
+            });
         }
     }
 

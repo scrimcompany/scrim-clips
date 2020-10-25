@@ -1,6 +1,38 @@
-import { Link, Button, Box, Spinner, Stack } from "@chakra-ui/core";
+import { Text, Link, Button, Box, Spinner, Stack, VStack, HStack, useToast } from "@chakra-ui/core";
+import Scoreboard from './Scoreboard';
+import dayjs from 'dayjs'
+import relativeTime from 'dayjs/plugin/relativeTime'
+dayjs.extend(relativeTime)
 
 export default function MatchCard(props) {
+    const toast = useToast();
+
+    const generateHighlights = async (matchId, demoUrl, uid) => {
+        const response = await fetch('/api/generateHighlights', {
+            method: 'POST',
+            headers: new Headers({ 'Content-Type': 'application/json', token: props.user && props.user.token }),
+            credentials: 'same-origin',
+            body: JSON.stringify({ matchId, demoUrl, uid })
+        });
+
+        if (response.ok) {
+            toast({
+                position: "bottom",
+                title: "Highlights to be generated!",
+                description: "Your match was added to the processing queue.",
+                status: "success",
+                isClosable: true,
+            });
+        } else {
+            toast({
+                position: "bottom",
+                title: "Something went wrong",
+                description: "Unable to generate highlights.",
+                status: "error",
+                isClosable: true,
+            });
+        }
+    }
 
     if (!props.demoUrl) {
         return (
@@ -15,18 +47,16 @@ export default function MatchCard(props) {
 
     return (
         <Box bg="gray.50" p={4} m={1}>
-            <div>Match {props.id}</div>
-            <div><Link href={props.demoUrl}><Button size="sm">Download demo</Button></Link></div>
-            {/* <div>Added {new Date(props.created).getTime()}</div> */}
-            <div>{props.players}</div>
-            <div>{props.kills}</div>
-            <div>{props.hs}</div>
-            <div>{props.assists}</div>
-            <div>{props.deaths}</div>
-            <div>{props.scores}</div>
-            <div>{props.mvps}</div>
-            {/* <div>{props.duration}</div> */}
-            <div>{props.team_scores.join(" - ")}</div>
+            <VStack spacing={2}>
+                <Text>Match {props.id} ({dayjs(props.matchtime * 1000).fromNow()})</Text>
+
+                <HStack>
+                    <Link href={props.demoUrl} as={Button}>Download demo</Link>
+                    <Button colorScheme="green" onClick={() => generateHighlights(props.id, props.demoUrl, props.user.id)}>Generate my highlights</Button>
+                </HStack>
+
+                <Scoreboard {...props}></Scoreboard>
+            </VStack>
         </Box>
     )
 }

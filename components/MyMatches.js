@@ -28,7 +28,7 @@ const MyMatches = ({ user }) => {
                 data &&
                 data.length > 0 &&
                 data.map(match => {
-                    return (<MatchCard key={match.id} {...match} />)
+                    return (<MatchCard key={match.id} {...match} user={user} />)
                 })
             }
         </div>
