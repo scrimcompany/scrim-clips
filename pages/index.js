@@ -19,7 +19,7 @@ const Index = ({ matches }) => {
       <>
         <Center bg="gray.50" minH="100vh" color="white">
           <VStack>
-            {/* <Heading textAlign="center">Your CS:GO highlights send to your email</Heading> */}
+            <Heading textAlign="center">Clips for CS:GO MM</Heading>
             <NextLink href={'/auth'} passHref>
               <Button>Sign in</Button>
             </NextLink>
