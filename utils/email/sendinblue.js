@@ -29,8 +29,8 @@ export const send = async (uid, link, clips) => {
         <html>
             <body>
                 <p>Your highlights were generated from one of your recent matches.</p>
-                <p><a href="${link}">View clips via website</a></p>
-                <p>or download clips,</p>
+                <p><a href="${link}">View clips online</a></p>
+                <p>or download them</p>
                 ${clipsHtml}
             </body>
         </html>
