@@ -77,7 +77,7 @@ const MyAPISecrets = () => {
 
     return (
         <>
-            <Button onClick={onOpen}>
+            <Button onClick={onOpen} colorScheme="green">
                 Set Authentication Code
             </Button>
             <Drawer placement={placement} onClose={onClose} isOpen={isOpen}>
@@ -105,7 +105,7 @@ const MyAPISecrets = () => {
                                             <FormHelperText><Link isExternal href="https://help.steampowered.com/en/wizard/HelpWithGameIssue/?appid=730&issueid=128">Find your your most recently completed match token</Link></FormHelperText>
                                         </FormControl>
 
-                                        <Button colorScheme="blue" type="submit">Save</Button>
+                                        <Button colorScheme="green" type="submit">Save</Button>
                                     </VStack>
                                 </form>
                             </Container>

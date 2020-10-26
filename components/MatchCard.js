@@ -58,14 +58,16 @@ export default function MatchCard(props) {
         )
     }
 
+    const alreadyGenerated = props.generatedFor
+
     return (
-        <Box bg="gray.50" p={4} m={1}>
+        <Box bg="purple.50" p={4} m={1}>
             <VStack spacing={2}>
                 <Text>Match {props.id} ({dayjs(props.matchtime * 1000).fromNow()})</Text>
 
                 <HStack>
-                    <Link href={props.demoUrl}><Button>Download demo</Button></Link>
                     <Button colorScheme="purple" onClick={() => generateHighlights(props.id, props.demoUrl, props.user.id)}>Generate my highlights</Button>
+                    <Link href={props.demoUrl}><Button>Download demo</Button></Link>
                 </HStack>
 
                 <Scoreboard {...props}></Scoreboard>

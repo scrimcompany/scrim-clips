@@ -3,6 +3,7 @@ import { useUser } from '../utils/auth/useUser'
 import { Button, Center, VStack, HStack, Heading, } from "@chakra-ui/core"
 import MyMatches from './../components/MyMatches';
 import MyAPISecrets from './../components/MyAPISecrets';
+import AddMatchToken from './../components/AddMatchToken';
 
 const fetcher = (url, token) =>
   fetch(url, {
@@ -30,13 +31,16 @@ const Index = ({ matches }) => {
   } else {
     return (
       <>
-        <HStack>
-          <MyAPISecrets />
+        <Center>
+          <HStack p={4}>
+            <MyAPISecrets />
+            <AddMatchToken />
 
-          <Button
-            onClick={() => logout()}
-          >Log out</Button>
-        </HStack>
+            <Button
+              onClick={() => logout()}
+            >Log out</Button>
+          </HStack>
+        </Center>
 
         { user && <MyMatches user={user} />}
       </>
