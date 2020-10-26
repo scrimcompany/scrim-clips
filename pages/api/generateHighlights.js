@@ -33,7 +33,7 @@ const generateHighlights = async (req, res) => {
 
     try {
         const { matchId, demoUrl } = req.body;
-        const message = `${matchId} ${demoUrl} ${steamId}`;
+        const message = `${matchId} ${demoUrl} ${steamId} ${uid}`;
         sqs.sendMessage({
             MessageBody: message,
             QueueUrl: queueURL,
