@@ -1,5 +1,7 @@
 import { admin } from '../../utils/auth/firebaseAdmin'
 
+import { send } from '../../utils/email/sendinblue'
+
 const saveClips = async (req, res) => {
     const { matchToken, steamId, uid } = req.query;
     let data = req.body && req.body[steamId];

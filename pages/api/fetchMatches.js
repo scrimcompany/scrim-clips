@@ -99,30 +99,29 @@ const fetchMatches = async (req, res) => {
         const results = await Promise.all(promises);
         console.log(results);
 
-        try {
-            const batch = admin.firestore().batch();
 
-            results.forEach(result => {
-                result.matchTokens.forEach(match => {
-                    const ref = admin.firestore().collection("matches").doc(match);
-                    batch.set(ref, {
-                        created: admin.firestore.FieldValue.serverTimestamp(),
-                        requestBy: admin.firestore.FieldValue.arrayUnion(result.uid)
-                    }, { merge: true });
-                });
+        const batch = admin.firestore().batch();
 
-                const ref = admin.firestore().collection("authcodes").doc(result.uid);
-                batch.set(ref, {
-                    latestMatchToken: last(result.matchTokens)
+        results.forEach(result => {
+            if (result.matchTokens.length === 0) return;
+            result.matchTokens.forEach(async match => {
+                const ref = admin.firestore().collection("matches").doc(match);
+                await batch.set(ref, {
+                    created: admin.firestore.FieldValue.serverTimestamp(),
+                    requestBy: admin.firestore.FieldValue.arrayUnion(result.uid)
                 }, { merge: true });
             });
 
-            await batch.commit();
-        } catch (e) {
+            const ref = admin.firestore().collection("authcodes").doc(result.uid);
+            batch.set(ref, {
+                latestMatchToken: last(result.matchTokens)
+            }, { merge: true });
+        });
 
-        }
+        await batch.commit();
 
-        return res.status(200).json("OK");
+
+        return res.status(200).json(results);
     } catch (e) {
         return res.status(400).json(e);
     }
