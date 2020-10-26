@@ -58,7 +58,7 @@ export default function MatchCard(props) {
         )
     }
 
-    const alreadyGenerated = props.generatedFor
+    const alreadyGenerated = props.generatedFor && props.generatedFor.indexOf(props.user.id) > -1;
 
     return (
         <Box bg="purple.50" p={4} m={1}>
@@ -66,12 +66,12 @@ export default function MatchCard(props) {
                 <Text>Match {props.id} ({dayjs(props.matchtime * 1000).fromNow()})</Text>
 
                 <HStack>
-                    <Button colorScheme="purple" onClick={() => generateHighlights(props.id, props.demoUrl, props.user.id)}>Generate my highlights</Button>
+                    {alreadyGenerated ? (<Button colorScheme="purple" disabled={true}>Highlights generated</Button>) : (<Button colorScheme="purple" onClick={() => generateHighlights(props.id, props.demoUrl, props.user.id)}>Generate my highlights</Button>)}
                     <Link href={props.demoUrl}><Button>Download demo</Button></Link>
                 </HStack>
 
                 <Scoreboard {...props}></Scoreboard>
             </VStack>
-        </Box>
+        </Box >
     )
 }

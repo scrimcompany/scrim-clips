@@ -14,7 +14,7 @@ export const send = async (uid, link, clips) => {
             return Promise.reject("Email not found for user");
         }
 
-        const clipsHtml = clips && clips.map(url => `<p>${url}</p>`).join("")
+        const clipsHtml = clips && clips.map(url => `<p>${encodeURI(url)}</p>`).join("")
 
         var apiInstance = new SibApiV3Sdk.TransactionalEmailsApi();
         var sendSmtpEmail = new SibApiV3Sdk.SendSmtpEmail();
@@ -29,8 +29,8 @@ export const send = async (uid, link, clips) => {
         <html>
             <body>
                 <p>Your highlights were generated from one of your recent matches.</p>
-                <p>${link}</p>
-                <p>or</p>
+                <p><a href="${link}">View clips via website</a></p>
+                <p>or download clips,</p>
                 ${clipsHtml}
             </body>
         </html>
