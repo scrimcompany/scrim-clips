@@ -1,5 +1,3 @@
-import useSWR from 'swr';
-import { useUser } from '../utils/auth/useUser';
 import { Spinner } from "@chakra-ui/core";
 
 import MatchCard from './MatchCard';
