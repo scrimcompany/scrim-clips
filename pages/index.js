@@ -34,7 +34,7 @@ const Index = () => {
         <Center>
           <Wrap p={4}>
             <MyAPISecrets />
-            {/* <AddMatchToken /> */}
+            <AddMatchToken />
 
             <Button
               onClick={() => logout()}
