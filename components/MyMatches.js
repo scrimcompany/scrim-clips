@@ -1,18 +1,18 @@
-import { Spinner } from "@chakra-ui/core";
+import { Spinner, Center } from "@chakra-ui/core";
 
 import MatchCard from './MatchCard';
 
 import { useCollection } from '@nandorojo/swr-firestore'
 
 const MyMatches = ({ user }) => {
-    const { data, update, error } = useCollection("matches", { where: ['requestBy', 'array-contains', user && user.id], listen: true, orderBy: ['matchtime', 'desc'], })
+    const { data, error } = useCollection("matches", { where: ['requestBy', 'array-contains', user && user.id], listen: true, orderBy: ['matchtime', 'desc'], })
 
     if (error) {
         console.log(error);
-        return (<div>Failed to fetch matches!</div>);
+        return (<Center>Failed to fetch matches!</Center>);
     }
     if (!data && !error) return (
-        <Spinner m={2} />
+        <Center><Spinner m={2} /></Center>
     );
 
     return (
@@ -20,7 +20,16 @@ const MyMatches = ({ user }) => {
             {
                 data &&
                 data.length === 0 &&
-                "Please set auth codes so we can access your match history."
+                <Center textAlign="center">
+                    In order for us to generate highlights for your official valve matchmaking matches,<br />please set your autentication code so we can access your match history.
+                </Center>
+            }
+            {
+                data &&
+                data.length > 0 &&
+                <>
+                    <Center textAlign="center">Showing your match history. Your match highlights, if you had any, will be sent to {user.email}.</Center>
+                </>
             }
             {
                 data &&
@@ -29,7 +38,7 @@ const MyMatches = ({ user }) => {
                     return (<MatchCard key={match.id} {...match} user={user} />)
                 })
             }
-        </div>
+        </div >
     )
 }
 

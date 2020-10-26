@@ -1,6 +1,6 @@
 import NextLink from 'next/link'
 import { useUser } from '../utils/auth/useUser'
-import { Button, Center, VStack, HStack, Heading, } from "@chakra-ui/core"
+import { Button, Center, VStack, Wrap, Heading, } from "@chakra-ui/core"
 import MyMatches from './../components/MyMatches';
 import MyAPISecrets from './../components/MyAPISecrets';
 import AddMatchToken from './../components/AddMatchToken';
@@ -12,7 +12,7 @@ const fetcher = (url, token) =>
     credentials: 'same-origin',
   }).then((res) => res.json())
 
-const Index = ({ matches }) => {
+const Index = () => {
   const { user, logout } = useUser()
 
   if (!user) {
@@ -20,9 +20,9 @@ const Index = ({ matches }) => {
       <>
         <Center bg="black" minH="100vh" color="white">
           <VStack>
-            <Heading textAlign="center">Clips for CS:GO MM</Heading>
+            <Heading textAlign="center" pb={8}>Get your CS:GO frag highlights via email</Heading>
             <NextLink href={'/auth'} passHref>
-              <Button colorScheme="purple">Sign in</Button>
+              <Button colorScheme="purple" size="lg">Sign in</Button>
             </NextLink>
           </VStack>
         </Center>
@@ -32,14 +32,14 @@ const Index = ({ matches }) => {
     return (
       <>
         <Center>
-          <HStack p={4}>
+          <Wrap p={4}>
             <MyAPISecrets />
-            <AddMatchToken />
+            {/* <AddMatchToken /> */}
 
             <Button
               onClick={() => logout()}
             >Log out</Button>
-          </HStack>
+          </Wrap>
         </Center>
 
         { user && <MyMatches user={user} />}
@@ -49,13 +49,3 @@ const Index = ({ matches }) => {
 }
 
 export default Index
-
-
-export async function getServerSideProps({ req }) {
-  // `getStaticProps` is invoked on the server-side,
-  // so this `fetcher` function will be executed on the server-side.
-  const dev = process.env.NODE_ENV !== 'production';
-  const data = await fetcher((dev ? 'http://localhost:3000' : 'https://clips.scrim.app') + '/api/listMatches')
-
-  return { props: { matches: data && data.matches } }
-}

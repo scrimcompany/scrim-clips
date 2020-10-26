@@ -53,8 +53,8 @@ const AddMatchToken = () => {
 
     return (
         <>
-            <Button onClick={onOpen} colorScheme="green">
-                Add matches manually
+            <Button onClick={onOpen} colorScheme="purple">
+                Add matches manually (experimental)
             </Button>
             <Drawer placement={placement} onClose={onClose} isOpen={isOpen}>
                 <DrawerOverlay>
@@ -69,7 +69,7 @@ const AddMatchToken = () => {
                                             <Input type="text" placeholder="CSGO-jSmMh-AemvK-xpiXo-eFwWQ-ASfCG" value={matchToken} onChange={(event) => setMatchToken(event.target.value && event.target.value.trim())} />
                                         </FormControl>
 
-                                        <Button colorScheme="green" type="submit">Submit</Button>
+                                        <Button colorScheme="purple" type="submit">Submit</Button>
                                     </VStack>
                                 </form>
                             </Container>
