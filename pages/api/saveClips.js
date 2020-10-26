@@ -6,6 +6,14 @@ const saveClips = async (req, res) => {
     const { matchToken, steamId, uid } = req.query;
     let data = req.body && req.body[steamId];
 
+    if (!data) {
+        await admin.firestore().collection("matches").doc(matchToken).set({
+            generatedFor: admin.firestore.FieldValue.arrayUnion(uid)
+        }, { merge: true })
+
+        return res.status(200).json("OK");
+    }
+
     if (!matchToken || !steamId || !uid) {
         return res.status(401).send("Invalid query params");
     }
