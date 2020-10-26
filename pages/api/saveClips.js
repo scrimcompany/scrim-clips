@@ -18,7 +18,7 @@ const saveClips = async (req, res) => {
         return res.status(401).send(error);
     }
 
-    return send(uid, matchToken).then(function (data) {
+    return send(uid, `https://clips.scrim.app/m/${matchToken}`).then(function (data) {
         console.log('API called successfully. Returned data:');
         console.log(data);
         return res.status(200).json("OK")

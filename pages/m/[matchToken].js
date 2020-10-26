@@ -1,14 +1,13 @@
-export default function Player({ uid }) {
+export default function Player({ matchToken }) {
     return (
-        <>Player {uid}</>
+        <>Match {matchToken}</>
     )
 }
-
 
 export async function getServerSideProps({ params }) {
     return {
         props: {
-            uid: params.uid
+            matchToken: params.matchToken
         }
     }
 }
