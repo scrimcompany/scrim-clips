@@ -52,7 +52,7 @@ const MyAPISecrets = () => {
                 toast({
                     position: "bottom",
                     title: "Success!",
-                    description: "We'll generate clips for your future matches and matches played in the last 48 hours. You'll get an email if highlights were generated!",
+                    description: "We'll generate clips for matches played in the last 48 hours and all future matches. FYI, you'll get an email if and only if highlights were generated!",
                     status: "success",
                     duration: 10000,
                     isClosable: true,
