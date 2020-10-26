@@ -1,4 +1,3 @@
-import { admin } from '../../utils/auth/firebaseAdmin'
 import { send } from '../../utils/email/sendinblue'
 
 const sendEmail = async (req, res) => {

@@ -1,3 +1,5 @@
+import { admin } from '../../utils/auth/firebaseAdmin'
+
 var SibApiV3Sdk = require('sib-api-v3-sdk');
 var defaultClient = SibApiV3Sdk.ApiClient.instance;
 var apiKey = defaultClient.authentications['api-key'];

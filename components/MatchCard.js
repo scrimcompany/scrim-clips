@@ -8,6 +8,19 @@ export default function MatchCard(props) {
     const toast = useToast();
 
     const generateHighlights = async (matchId, demoUrl, uid) => {
+        const alreadyGeneratedForUser = props.generatedFor && props.generatedFor.indexOf(uid) > -1;
+
+        if (alreadyGeneratedForUser) {
+            toast({
+                position: "bottom",
+                title: "Clips already exist",
+                description: "Looks like we already generated clips for this match.",
+                status: "error",
+                isClosable: true,
+            });
+            return;
+        }
+
         const response = await fetch('/api/generateHighlights', {
             method: 'POST',
             headers: new Headers({ 'Content-Type': 'application/json', token: props.user && props.user.token }),
