@@ -72,7 +72,7 @@ const fetchMatches = async (req, res) => {
                 matchTokens.forEach(matchToken => {
                     try {
                         sqs.sendMessage({
-                            MessageBody: matchToken,
+                            MessageBody: `${matchToken} ${secrets.steamId} ${secrets.uid}`,
                             QueueUrl: queueURL,
                         }, function (err, data) {
                             if (err) {
