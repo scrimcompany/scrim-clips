@@ -51,7 +51,7 @@ export default function MatchCard(props) {
                 <Text>Match {props.id} ({dayjs(props.matchtime * 1000).fromNow()})</Text>
 
                 <HStack>
-                    <Link href={props.demoUrl} as={Button}>Download demo</Link>
+                    <Link href={props.demoUrl}><Button>Download demo</Button></Link>
                     <Button colorScheme="green" onClick={() => generateHighlights(props.id, props.demoUrl, props.user.id)}>Generate my highlights</Button>
                 </HStack>
 

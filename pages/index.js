@@ -14,6 +14,8 @@ const fetcher = (url, token) =>
 const Index = ({ matches }) => {
   const { user, logout } = useUser()
 
+  debugger;
+
   if (!user) {
     return (
       <>
