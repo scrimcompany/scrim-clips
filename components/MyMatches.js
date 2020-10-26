@@ -5,7 +5,7 @@ import MatchCard from './MatchCard';
 import { useCollection } from '@nandorojo/swr-firestore'
 
 const MyMatches = ({ user }) => {
-    const { data, update, error } = useCollection("matches", { where: ['requestBy', 'array-contains', user && user.id], listen: true, orderBy: ['created', 'desc'], })
+    const { data, update, error } = useCollection("matches", { where: ['requestBy', 'array-contains', user && user.id], listen: true, orderBy: ['matchtime', 'desc'], })
 
     if (error) {
         console.log(error);

@@ -52,8 +52,9 @@ const MyAPISecrets = () => {
                 toast({
                     position: "bottom",
                     title: "Success!",
-                    description: "Your auth codes were saved and will be used to fetch matches!",
+                    description: "We'll generate clips for your future matches and matches played in the last 48 hours. You'll get an email if highlights were generated!",
                     status: "success",
+                    duration: 10000,
                     isClosable: true,
                 });
 
@@ -66,7 +67,7 @@ const MyAPISecrets = () => {
         } catch (e) {
             toast({
                 position: "bottom",
-                title: "Unable to fetch match history.",
+                title: "Unable to fetch match history. Make sure the steamID64 is for the correct account.",
                 description: e.message,
                 status: "error",
                 isClosable: true,
@@ -90,17 +91,17 @@ const MyAPISecrets = () => {
                                     <VStack spacing="1rem">
                                         <FormControl id="steamId" isRequired>
                                             <FormLabel>Your SteamID64</FormLabel>
-                                            <Input type="text" placeholder="76561197961790405" value={steamId} onChange={(event) => setSteamId(event.target.value)} />
+                                            <Input type="text" placeholder="76561197961790405" value={steamId} onChange={(event) => setSteamId(event.target.value && event.target.value.trim())} />
                                             <FormHelperText><Link isExternal href="https://steamid.io/">Find your steamID64</Link></FormHelperText>
                                         </FormControl>
                                         <FormControl id="authCode" isRequired>
                                             <FormLabel>Authentication Code</FormLabel>
-                                            <Input type="text" placeholder="9KSN-9L2H7-P5HX" value={authCode} onChange={(event) => setAuthCode(event.target.value)} />
+                                            <Input type="text" placeholder="9KSN-9L2H7-P5HX" value={authCode} onChange={(event) => setAuthCode(event.target.value && event.target.value.trim())} />
                                             <FormHelperText><Link isExternal href="https://help.steampowered.com/en/wizard/HelpWithGameIssue/?appid=730&issueid=128">Find your Match History Authentication Code</Link></FormHelperText>
                                         </FormControl>
                                         <FormControl id="matchToken" isRequired>
                                             <FormLabel>Match Token</FormLabel>
-                                            <Input type="text" placeholder="CSGO-jSmMh-AemvK-xpiXo-eFwWQ-ASfCG" value={matchToken} onChange={(event) => setMatchToken(event.target.value)} />
+                                            <Input type="text" placeholder="CSGO-jSmMh-AemvK-xpiXo-eFwWQ-ASfCG" value={matchToken} onChange={(event) => setMatchToken(event.target.value && event.target.value.trim())} />
                                             <FormHelperText><Link isExternal href="https://help.steampowered.com/en/wizard/HelpWithGameIssue/?appid=730&issueid=128">Find your your most recently completed match token</Link></FormHelperText>
                                         </FormControl>
 
