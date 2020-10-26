@@ -4,7 +4,7 @@ import { Center, Container } from "@chakra-ui/core"
 const Auth = () => {
   return (
     <>
-      <Center bg="gray.50" h="100vh" color="white">
+      <Center bg="black" h="100vh" color="white">
         <Container>
           <FirebaseAuth />
         </Container>

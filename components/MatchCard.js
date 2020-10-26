@@ -65,7 +65,7 @@ export default function MatchCard(props) {
 
                 <HStack>
                     <Link href={props.demoUrl}><Button>Download demo</Button></Link>
-                    <Button colorScheme="green" onClick={() => generateHighlights(props.id, props.demoUrl, props.user.id)}>Generate my highlights</Button>
+                    <Button colorScheme="purple" onClick={() => generateHighlights(props.id, props.demoUrl, props.user.id)}>Generate my highlights</Button>
                 </HStack>
 
                 <Scoreboard {...props}></Scoreboard>
