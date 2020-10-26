@@ -5,7 +5,7 @@ var defaultClient = SibApiV3Sdk.ApiClient.instance;
 var apiKey = defaultClient.authentications['api-key'];
 apiKey.apiKey = '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';
 
-export const send = async (uid, link) => {
+export const send = async (uid, link, clips) => {
     try {
         const userRecord = await admin.auth().getUser(uid);
         const user = userRecord.toJSON();
@@ -13,6 +13,8 @@ export const send = async (uid, link) => {
         if (!email) {
             return Promise.reject("Email not found for user");
         }
+
+        const clipsHtml = clips && clips.map(url => `<p>${url}</p>`).join("")
 
         var apiInstance = new SibApiV3Sdk.TransactionalEmailsApi();
         var sendSmtpEmail = new SibApiV3Sdk.SendSmtpEmail();
@@ -28,6 +30,8 @@ export const send = async (uid, link) => {
             <body>
                 <p>Your highlights were generated from one of your recent matches.</p>
                 <p>${link}</p>
+                <p>or</p>
+                ${clipsHtml}
             </body>
         </html>
         `

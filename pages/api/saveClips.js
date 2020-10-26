@@ -20,7 +20,9 @@ const saveClips = async (req, res) => {
         return res.status(401).send(error);
     }
 
-    return send(uid, `https://clips.scrim.app/m/${matchToken}?steamId=${steamId}`).then(function (data) {
+    const clips = data && Object.keys(data) && Object.keys(data).map(round => data[round]);
+
+    return send(uid, `https://clips.scrim.app/m/${matchToken}?steamId=${steamId}`, clips).then(function (data) {
         console.log('API called successfully. Returned data:');
         console.log(data);
         return res.status(200).json("OK")
