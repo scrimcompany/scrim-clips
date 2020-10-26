@@ -53,7 +53,7 @@ const AddMatchToken = () => {
 
     return (
         <>
-            <Button onClick={onOpen} colorScheme="purple">
+            <Button onClick={onOpen}>
                 Manual add match
             </Button>
             <Drawer placement={placement} onClose={onClose} isOpen={isOpen}>
