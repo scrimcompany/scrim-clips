@@ -26,15 +26,15 @@ export const send = async (uid, link, clips) => {
             sender: { name: "clips.scrim.app", email: "scrimcompany@gmail.com" },
             subject: "New highlights",
             htmlContent: `
-        <html>
-            <body>
-                <p>Your highlights were generated from one of your recent matches.</p>
-                <p><a href="${link}">View clips online</a></p>
-                <p>or download them</p>
-                ${clipsHtml}
-            </body>
-        </html>
-        `
+            <html>
+                <body>
+                    <p>Your highlights were generated from one of your recent matches.</p>
+                    <p><a href="${link}">View clips online</a></p>
+                    <p>or download them</p>
+                    ${clipsHtml}
+                </body>
+            </html>
+            `
         };
 
         return apiInstance.sendTransacEmail(sendSmtpEmail);
