@@ -7,6 +7,7 @@ const saveClips = async (req, res) => {
     let data = req.body && req.body[steamId];
 
     if (!data) {
+        await admin.firestore().collection("match_processed").add({ matchToken, steamId, uid, created: admin.firestore.FieldValue.serverTimestamp() });
         await admin.firestore().collection("matches").doc(matchToken).set({
             generatedFor: admin.firestore.FieldValue.arrayUnion(uid)
         }, { merge: true })
@@ -19,6 +20,7 @@ const saveClips = async (req, res) => {
     }
 
     try {
+        await admin.firestore().collection("match_processed").add({ matchToken, steamId, uid, created: admin.firestore.FieldValue.serverTimestamp() });
         await admin.firestore().collection("matches").doc(matchToken).collection("clips").doc(steamId).set(data);
         await admin.firestore().collection("matches").doc(matchToken).set({
             generatedFor: admin.firestore.FieldValue.arrayUnion(uid)
