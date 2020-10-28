@@ -60,15 +60,25 @@ export default function MatchCard(props) {
 
     const alreadyGenerated = props.generatedFor && props.generatedFor.indexOf(props.user.id) > -1;
 
+    // const highlightsLink = `/m/${props.id}?steamId=`
+
     return (
         <Box bg="purple.50" p={4} m={1}>
             <VStack spacing={2}>
                 <Text>Match {props.id} ({dayjs(props.matchtime * 1000).fromNow()})</Text>
 
-                <HStack>
-                    {alreadyGenerated ? (<Button colorScheme="purple" disabled={true}>Highlights generated</Button>) : (<Button colorScheme="purple" onClick={() => generateHighlights(props.id, props.demoUrl, props.user.id)}>Generate my highlights</Button>)}
-                    <Link href={props.demoUrl}><Button>Download demo</Button></Link>
-                </HStack>
+                <VStack>
+                    {/* <Link href={props.demoUrl}><Button>Download demo</Button></Link> */}
+                    {
+                        alreadyGenerated ?
+                            (<>Match Processed ✅</>) :
+                            (<>Match To Be Processed ⌛</>)
+                    }
+                    {
+                        false &&
+                        (<Button colorScheme="purple" onClick={() => generateHighlights(props.id, props.demoUrl, props.user.id)}>Generate my highlights</Button>)
+                    }
+                </VStack>
 
                 <Scoreboard {...props}></Scoreboard>
             </VStack>

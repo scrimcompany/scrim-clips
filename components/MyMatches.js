@@ -28,7 +28,8 @@ const MyMatches = ({ user }) => {
                 data &&
                 data.length > 0 &&
                 <>
-                    <Center textAlign="center">Showing your match history. Your match highlights, if you had any, will be sent to {user.email}.</Center>
+                    <Center textAlign="center" fontWeight="bold" py={2}>Your match highlights, if you had any, will be sent to {user.email}.</Center>
+                    <Center textAlign="center">Showing your match history.</Center>
                 </>
             }
             {
