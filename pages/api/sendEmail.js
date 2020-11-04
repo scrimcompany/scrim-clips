@@ -1,4 +1,5 @@
 import { send } from '../../utils/email/sendinblue'
+// import { send } from '../../utils/email/mailjet'
 
 const sendEmail = async (req, res) => {
     const uid = req.query.uid;
