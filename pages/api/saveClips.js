@@ -20,8 +20,8 @@ const saveClips = async (req, res) => {
     }
 
     try {
+        await admin.firestore().collection("clips").add(Object.assign({}, data, matchToken, steamId, uid, { created: admin.firestore.FieldValue.serverTimestamp() }));
         await admin.firestore().collection("match_processed").add({ matchToken, steamId, uid, created: admin.firestore.FieldValue.serverTimestamp() });
-        await admin.firestore().collection("matches").doc(matchToken).collection("clips").doc(steamId).set(data);
         await admin.firestore().collection("matches").doc(matchToken).set({
             generatedFor: admin.firestore.FieldValue.arrayUnion(uid)
         }, { merge: true })
@@ -32,7 +32,7 @@ const saveClips = async (req, res) => {
 
     const clips = data && Object.keys(data) && Object.keys(data).map(round => data[round]);
 
-    return send(uid, `https://clips.scrim.app/m/${matchToken}?steamId=${steamId}`, clips).then(function (data) {
+    return send(uid, `https://clips.scrim.app/p/${steamId}`, clips).then(function (data) {
         console.log('API called successfully. Returned data:');
         console.log(data);
         return res.status(200).json("OK")

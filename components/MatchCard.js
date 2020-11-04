@@ -8,7 +8,7 @@ export default function MatchCard(props) {
     const toast = useToast();
 
     const generateHighlights = async (matchId, demoUrl, uid) => {
-        const alreadyGeneratedForUser = props.generatedFor && props.generatedFor.indexOf(uid) > -1;
+        const alreadyGeneratedForUser = false && props.generatedFor && props.generatedFor.indexOf(uid) > -1;
 
         if (alreadyGeneratedForUser) {
             toast({
@@ -75,7 +75,7 @@ export default function MatchCard(props) {
                             (<>Match To Be Processed ⌛</>)
                     }
                     {
-                        false &&
+                        process.env.NODE_ENV !== "production" &&
                         (<Button colorScheme="purple" onClick={() => generateHighlights(props.id, props.demoUrl, props.user.id)}>Generate my highlights</Button>)
                     }
                 </VStack>
