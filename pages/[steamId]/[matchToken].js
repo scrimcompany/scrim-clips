@@ -25,15 +25,19 @@ export default function Match({ steamId, matchToken, initialData }) {
 
     const clips = data && data[0] && data[0].data && Object.values(data[0].data);
 
+    const videoStyle = {
+        width: "100%"
+    };
+
     return (
         <Container maxW="xl">
             <VStack>
                 {
                     clips && clips.map(clip => {
                         return (
-                            <div key={clip}>
+                            <div key={clip} style={videoStyle}>
                                 <video
-                                    width="100%"
+                                    style={videoStyle}
                                     src={clip}
                                     type="video/mp4"
                                     controls
