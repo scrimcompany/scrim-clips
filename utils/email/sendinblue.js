@@ -14,7 +14,7 @@ export const send = async (uid, link, clips) => {
             return Promise.reject("Email not found for user");
         }
 
-        const clipsHtml = clips && clips.map(url => `<p>${encodeURI(url)}</p>`).join("")
+        const clipsHtml = clips && clips.map(url => `<p>${encodeURI(url.replace("https://sfo2.digitaloceanspaces.com/scrim-demos/", "https://scrim-demos.sfo2.cdn.digitaloceanspaces.com/"))}</p>`).join("")
 
         var apiInstance = new SibApiV3Sdk.TransactionalEmailsApi();
         var sendSmtpEmail = new SibApiV3Sdk.SendSmtpEmail();

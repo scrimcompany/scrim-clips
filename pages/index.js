@@ -1,42 +1,44 @@
 import NextLink from 'next/link'
 import { useUser } from '../utils/auth/useUser'
-import { Button, Center, VStack, Wrap, Heading } from "@chakra-ui/core"
+import { Box, Button, Center, Stack, VStack, Wrap, Heading, Link, Text } from "@chakra-ui/core"
 import MyMatches from './../components/MyMatches';
 import MyAPISecrets from './../components/MyAPISecrets';
-import AddMatchToken from './../components/AddMatchToken';
 
 const Index = () => {
   const { user, logout } = useUser()
 
   if (!user) {
     return (
-      <>
-        <Center bg="black" minH="100vh" color="white">
-          <VStack>
-            <Heading textAlign="center" pb={8}>Get your CS:GO frag highlights via email</Heading>
+      <Box>
+        <Center minH="100vh" bg="gray.700" >
+          <VStack spacing={4}>
+            <Heading size="xl" color="white">Get your CS:GO match highlights via email</Heading>
+            <Text color="gray.400">After each matchmaking game, we'll send video clips to your email!</Text>
             <NextLink href={'/auth'} passHref>
-              <Button colorScheme="purple" size="lg">Sign in</Button>
+              <Button colorScheme="purple" size="lg" spacing={2}>Sign in</Button>
             </NextLink>
+            <br />
+            <Text color="gray.500" fontSize="sm">Built by <Link href="https://twitter.com/junpnw" isExternal>@junpnw</Link></Text>
           </VStack>
         </Center>
-      </>
+      </Box>
     )
   } else {
     return (
-      <>
-        <Center>
-          <Wrap p={4}>
-            <MyAPISecrets />
-            {/* <AddMatchToken /> */}
+      <Stack spacing="1rem" m={4}>
+        <Wrap>
+          <MyAPISecrets />
+          {/* <AddMatchToken /> */}
 
-            <Button
-              onClick={() => logout()}
-            >Log out</Button>
-          </Wrap>
-        </Center>
+          <Button
+            onClick={() => logout()}
+          >Log out</Button>
+        </Wrap>
 
-        { user && <MyMatches user={user} />}
-      </>
+        <Box>
+          {user && <MyMatches user={user} />}
+        </Box>
+      </Stack>
     )
   }
 }

@@ -12,12 +12,14 @@ const sqs = new AWS.SQS({ apiVersion: "2012-11-05" });
 
 const generateHighlights = async (req, res) => {
     const token = req.headers.token
-    let uid;
+    let uid = req.query.uid;
     let steamId;
 
     try {
-        const decodedToken = await verifyIdToken(token);
-        uid = decodedToken.uid;
+        if (!uid) {
+            const decodedToken = await verifyIdToken(token);
+            uid = decodedToken.uid;
+        }
 
         const authCodeSnap = await admin.firestore().collection("authcodes").doc(uid).get();
         const authCode = authCodeSnap.data();

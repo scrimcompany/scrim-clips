@@ -1,4 +1,4 @@
-import { Spinner, Center } from "@chakra-ui/core";
+import { Text, Spinner, Link } from "@chakra-ui/core";
 
 import MatchCard from './MatchCard';
 
@@ -9,37 +9,31 @@ const MyMatches = ({ user }) => {
 
     if (error) {
         console.log(error);
-        return (<Center>Failed to fetch matches!</Center>);
+        return (<>Failed to fetch matches!</>);
     }
     if (!data && !error) return (
-        <Center><Spinner m={2} /></Center>
+        <Spinner m={2} />
     );
 
+    if (data && data.length === 0) {
+        return (
+            <Text>
+                Before we can generate your highlights, we'll need access to your match history so we can download your official matchmaking demos.
+            </Text>
+        )
+    }
+
+    const MatchCards = data.map(match => {
+        return (<MatchCard key={match.id} {...match} user={user} />)
+    });
+
     return (
-        <div>
-            {
-                data &&
-                data.length === 0 &&
-                <Center textAlign="center">
-                    In order for us to generate highlights for your official valve matchmaking matches,<br />please set your autentication code so we can access your match history.
-                </Center>
-            }
-            {
-                data &&
-                data.length > 0 &&
-                <>
-                    <Center textAlign="center" fontWeight="bold" py={2}>That's it! Nothing further to do, go play MM. Your match highlights, if you had any, will be sent to {user.email}.</Center>
-                    <Center textAlign="center">Showing your match history.</Center>
-                </>
-            }
-            {
-                data &&
-                data.length > 0 &&
-                data.map(match => {
-                    return (<MatchCard key={match.id} {...match} user={user} />)
-                })
-            }
-        </div >
+        <>
+            <Text fontSize="lg">Your match highlights, if you had any, will be sent to <code>{user.email}</code></Text>
+            <Text fontSize="lg">If you have any feedback or questions, ask me on <Link href="https://discord.gg/hqwNJew" isExternal>Discord</Link>.</Text>
+            <br />
+            {MatchCards}
+        </>
     )
 }
 

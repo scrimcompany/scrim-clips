@@ -1,4 +1,4 @@
-import { Text, Link, Button, Box, Spinner, Stack, VStack, HStack, useToast } from "@chakra-ui/core";
+import { Text, Link, Button, Box, Spinner, Stack, useToast } from "@chakra-ui/core";
 import Scoreboard from './Scoreboard';
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
@@ -49,12 +49,10 @@ export default function MatchCard(props) {
 
     if (!props.demoUrl) {
         return (
-            <Box bg="gray.50" p={4} m={1}>
-                <Stack direction="row" spacing={4} alignItems="center">
-                    <Spinner size="xs" />
-                    <div>Processing match {props.id}</div>
-                </Stack>
-            </Box>
+            <Stack direction="row" spacing={4} alignItems="center">
+                <Spinner size="xs" />
+                <div>Fetching match {props.id}</div>
+            </Stack>
         )
     }
 
@@ -63,25 +61,20 @@ export default function MatchCard(props) {
     // const highlightsLink = `/m/${props.id}?steamId=`
 
     return (
-        <Box bg="purple.50" p={4} m={1}>
-            <VStack spacing={2}>
-                <Text>Match {props.id} ({dayjs(props.matchtime * 1000).fromNow()})</Text>
+        <Stack spacing={2}>
+            {
+                alreadyGenerated ?
+                    (<>Match {props.id} from {dayjs(props.matchtime * 1000).fromNow()} Processed ✅</>) :
+                    (<>Match {props.id} from {dayjs(props.matchtime * 1000).fromNow()} To Be Processed ⌛</>)
+            }
 
-                <VStack>
-                    {/* <Link href={props.demoUrl}><Button>Download demo</Button></Link> */}
-                    {
-                        alreadyGenerated ?
-                            (<>Match Processed ✅</>) :
-                            (<>Match To Be Processed ⌛</>)
-                    }
-                    {
-                        process.env.NODE_ENV !== "production" &&
-                        (<Button colorScheme="purple" onClick={() => generateHighlights(props.id, props.demoUrl, props.user.id)}>Generate my highlights</Button>)
-                    }
-                </VStack>
+            {
+                false &&
+                process.env.NODE_ENV !== "production" &&
+                (<Button colorScheme="purple" onClick={() => generateHighlights(props.id, props.demoUrl, props.user.id)}>Generate my highlights</Button>)
+            }
 
-                <Scoreboard {...props}></Scoreboard>
-            </VStack>
-        </Box >
+            {/* <Scoreboard {...props}></Scoreboard> */}
+        </Stack >
     )
 }
