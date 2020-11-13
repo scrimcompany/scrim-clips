@@ -3,7 +3,7 @@ import { admin } from '../../utils/auth/firebaseAdmin'
 var SibApiV3Sdk = require('sib-api-v3-sdk');
 var defaultClient = SibApiV3Sdk.ApiClient.instance;
 var apiKey = defaultClient.authentications['api-key'];
-apiKey.apiKey = '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';
+apiKey.apiKey = process.env.SENDINBLUE_API;
 
 export const send = async (uid, link, clips) => {
     try {

@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import styled from 'styled-components'
 import { Heading, SimpleGrid, Container } from "@chakra-ui/core";
 
 
@@ -9,7 +8,10 @@ export default function Scoreboard() {
 
     useEffect(() => {
         (async () => {
-            const response = await fetch(`/api/latestClips`, { cache: "force-cache" });
+            const response = await fetch(`/api/latestClips`, {
+                method: 'GET',
+                headers: { 'Content-Type': 'application/json', 'Cache-Control': 'max-age=30' },
+            });
 
             if (response.ok) {
                 const clips = await response.json()
