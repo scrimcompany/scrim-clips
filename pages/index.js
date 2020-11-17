@@ -3,6 +3,7 @@ import { useUser } from '../utils/auth/useUser'
 import { Box, Button, Center, Stack, VStack, Wrap, Heading, Link, Text } from "@chakra-ui/core"
 import MyMatches from './../components/MyMatches';
 import MyAPISecrets from './../components/MyAPISecrets';
+import AddMatchToken from './../components/AddMatchToken';
 
 const Index = () => {
   const { user, logout } = useUser()
@@ -28,6 +29,7 @@ const Index = () => {
       <Stack spacing="1rem" m={4}>
         <Wrap>
           <MyAPISecrets />
+          <AddMatchToken />
 
           <Button
             onClick={() => logout()}
