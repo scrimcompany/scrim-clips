@@ -29,7 +29,7 @@ const Index = () => {
       <Stack spacing="1rem" m={4}>
         <Wrap>
           <MyAPISecrets />
-          <AddMatchToken />
+          {/* <AddMatchToken /> */}
 
           <Button
             onClick={() => logout()}
