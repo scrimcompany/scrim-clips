@@ -28,16 +28,13 @@ const Index = () => {
       <Stack spacing="1rem" m={4}>
         <Wrap>
           <MyAPISecrets />
-          {/* <AddMatchToken /> */}
 
           <Button
             onClick={() => logout()}
           >Log out</Button>
         </Wrap>
 
-        <Box>
-          {user && <MyMatches user={user} />}
-        </Box>
+        <Box>{user && <MyMatches user={user} />}</Box>
       </Stack>
     )
   }

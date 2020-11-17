@@ -1,9 +1,7 @@
 import LatestClips from '../components/LatestClips'
 
 const Index = () => {
-    return (
-        <LatestClips />
-    )
+    return (<LatestClips />)
 
 }
 
