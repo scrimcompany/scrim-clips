@@ -26,7 +26,7 @@ export default function Scoreboard() {
 
     return (
         <Container maxW="lg">
-            <Heading padding={4} size="lg" color="white">Latest Clips</Heading>
+            <Heading padding={4} size="lg" color="white" textAlign="center">Latest Clips</Heading>
             <SimpleGrid columns={2} spacing={10} padding={4}>
                 {
                     clips &&
