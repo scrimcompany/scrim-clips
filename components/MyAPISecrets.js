@@ -79,8 +79,8 @@ const MyAPISecrets = () => {
         <>
             {
                 matchToken && authCode ?
-                    <Button onClick={onOpen}>Update match history auth codes</Button> :
-                    <Button onClick={onOpen} colorScheme="purple">Set match history auth codes</Button>
+                    <Button onClick={onOpen}>Update match history auth code</Button> :
+                    <Button onClick={onOpen} colorScheme="purple">Set match history auth code</Button>
             }
 
             <Drawer placement={placement} onClose={onClose} isOpen={isOpen}>

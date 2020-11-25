@@ -4,6 +4,7 @@ import { Box, Button, Center, Stack, VStack, Wrap, Heading, Link, Text } from "@
 import MyMatches from './../components/MyMatches';
 import MyAPISecrets from './../components/MyAPISecrets';
 import AddMatchToken from './../components/AddMatchToken';
+import FAQ from './../components/FAQ';
 
 const Index = () => {
   const { user, logout } = useUser()
@@ -36,6 +37,15 @@ const Index = () => {
           >Log out</Button>
         </Wrap>
 
+        <p>
+          <Text>Your match highlights, if you had any, will be sent to <code>{user.email}</code></Text>
+          <Text>If you have any feedback or questions, ask me on <Link href="https://discord.gg/hqwNJew" isExternal>Discord</Link> or on Twitter <Link href="https://twitter.com/junpnw" isExternal>@junpnw</Link></Text>
+        </p>
+
+        <Heading size="md">Frequently asked questions</Heading>
+        <FAQ />
+
+        <Heading size="md">Your matches</Heading>
         <Box>{user && <MyMatches user={user} />}</Box>
       </Stack>
     )

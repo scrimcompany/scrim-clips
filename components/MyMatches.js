@@ -18,7 +18,7 @@ const MyMatches = ({ user }) => {
     if (data && data.length === 0) {
         return (
             <Text>
-                Before we can generate your highlights, we'll need access to your match history so we can download your official matchmaking demos.
+                Please set your match history auth code.
             </Text>
         )
     }
@@ -29,9 +29,6 @@ const MyMatches = ({ user }) => {
 
     return (
         <>
-            <Text fontSize="lg">Your match highlights, if you had any, will be sent to <code>{user.email}</code></Text>
-            <Text fontSize="lg">If you have any feedback or questions, ask me on <Link href="https://discord.gg/hqwNJew" isExternal>Discord</Link>.</Text>
-            <br />
             {MatchCards}
         </>
     )
